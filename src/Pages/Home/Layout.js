@@ -6,6 +6,7 @@ import BillingRow from "./BillingRow";
 
 const Layout = () => {
   const [addBillModal, setAddBillModal] = useState(null);
+  const [submitMethod, setSubmitMethod] = useState(null);
 
   const {
     data: billingList,
@@ -43,11 +44,14 @@ const Layout = () => {
             <label
               htmlFor="add-bill-modal"
               className="btn modal-button"
-              onClick={() => setAddBillModal(1)}
+              onClick={() => {
+                setAddBillModal(1);
+                setSubmitMethod("POST");
+              }}
             >
               Add A New Bill
             </label>
-            {addBillModal && <AddBillModal />}
+            {addBillModal && <AddBillModal submitMethod={submitMethod} />}
           </div>
         </div>
       </section>

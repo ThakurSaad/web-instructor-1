@@ -1,8 +1,11 @@
 import React from "react";
 import { toast } from "react-toastify";
 
-const AddBillModal = () => {
+const AddBillModal = ({ submitMethod, _id }) => {
+  console.log(submitMethod);
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     const fullName = event.target.fullName.value;
     const email = event.target.email.value;
     const phone = event.target.phone.value;
@@ -14,25 +17,47 @@ const AddBillModal = () => {
       paidAmount: paidAmount,
     };
 
-    fetch("http://localhost:5000/add-billing", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(bill),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          toast.success("Submitted Successfully");
-        } else {
-          toast.error(
-            "An error occurred. Please reload the page and try again"
-          );
-        }
-      });
+    if (submitMethod === "POST") {
+      fetch("http://localhost:5000/add-billing", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(bill),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Submitted Successfully");
+            window.location.reload();
+          } else {
+            toast.error(
+              "An error occurred. Please reload the page and try again"
+            );
+          }
+        });
+    }
 
-    event.preventDefault();
+    if (submitMethod === "PUT") {
+      fetch(`http://localhost:5000/add-billing?id=${_id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(bill),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Edited Successfully");
+            window.location.reload();
+          } else {
+            toast.error(
+              "An error occurred. Please reload the page and try again"
+            );
+          }
+        });
+    }
   };
 
   return (
@@ -112,16 +137,10 @@ const AddBillModal = () => {
               <input
                 type="submit"
                 value="Submit"
-                className="btn w-full max-w-full"
+                className="btn  w-full max-w-full"
               />
             </div>
           </form>
-          <label
-            htmlFor="add-bill-modal"
-            className="btn bg-green-600 w-80 my-4"
-          >
-            Done
-          </label>
         </div>
       </div>
     </div>
