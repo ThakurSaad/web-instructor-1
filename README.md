@@ -8,3 +8,4 @@ Live site
 - Firebase
 - React firebase hooks
 - React hook form
+- React query

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import AddBillModal from "./AddBillModal";
 
 const Layout = () => {
+  const [addBillModal, setAddBillModal] = useState(null);
+
   return (
     <main>
       <section className="header flex justify-between bg-base-200 p-4">
@@ -21,7 +24,14 @@ const Layout = () => {
             />
           </div>
           <div>
-            <button className="btn">Add A New Bill</button>
+            <label
+              htmlFor="add-bill-modal"
+              className="btn modal-button"
+              onClick={() => setAddBillModal(1)}
+            >
+              Add A New Bill
+            </label>
+            {addBillModal && <AddBillModal />}
           </div>
         </div>
       </section>
