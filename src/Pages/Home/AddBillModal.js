@@ -39,7 +39,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
     }
 
     if (submitMethod === "PUT") {
-      fetch(`http://localhost:5000/add-billing?id=${_id}`, {
+      fetch(`http://localhost:5000/update-billing/${_id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
