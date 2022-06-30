@@ -7,6 +7,7 @@ import {
 import auth from "../../firebase.init";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading";
+import useToken from "../../hooks/useToken";
 
 const Register = () => {
   // react router hook
@@ -21,14 +22,16 @@ const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating] = useUpdateProfile(auth);
+  // custom hooks
+  const [token] = useToken(user);
   // variable
   let errorElement;
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       navigate("/");
     }
-  }, [navigate, user]);
+  }, [navigate, token]);
 
   if (loading || updating) {
     return <Loading />;
