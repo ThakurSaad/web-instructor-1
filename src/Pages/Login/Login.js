@@ -3,6 +3,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
+import Loading from "../Shared/Loading";
 
 const Login = () => {
   // react hook form
@@ -16,6 +17,18 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   // variable
   let errorElement;
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    errorElement = (
+      <p className=" px-1 pb-2">
+        <small className="text-red-500">{error.message}</small>
+      </p>
+    );
+  }
 
   const onSubmit = async (data) => {
     signInWithEmailAndPassword(data.email, data.password);
