@@ -6,3 +6,5 @@ Live site
 - Tailwind Css
 - DaisyUi
 - Firebase
+- React firebase hooks
+- React hook form
