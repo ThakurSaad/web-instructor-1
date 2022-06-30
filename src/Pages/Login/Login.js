@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading";
 
 const Login = () => {
+  // react router hook
+  const navigate = useNavigate();
   // react hook form
   const {
     register,
@@ -17,6 +19,12 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   // variable
   let errorElement;
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   if (loading) {
     return <Loading />;

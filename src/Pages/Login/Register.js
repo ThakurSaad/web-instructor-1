@@ -5,11 +5,12 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading";
 
 const Register = () => {
+  // react router hook
+  const navigate = useNavigate();
   // react hook form
   const {
     register,
@@ -19,9 +20,15 @@ const Register = () => {
   // firebase hooks
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  const [updateProfile, updating, uError] = useUpdateProfile(auth);
+  const [updateProfile, updating] = useUpdateProfile(auth);
   // variable
   let errorElement;
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   if (loading || updating) {
     return <Loading />;
@@ -38,9 +45,6 @@ const Register = () => {
   const onSubmit = async (data) => {
     createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
-    if (user) {
-      toast.success("Registration successful");
-    }
   };
 
   return (
