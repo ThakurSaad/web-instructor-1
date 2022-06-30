@@ -2,29 +2,45 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   useCreateUserWithEmailAndPassword,
-  useSignInWithGoogle,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-// import { toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import Loading from "../Shared/Loading";
 
 const Register = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm();
+  // react hook form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  // firebase hooks
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating, uError] = useUpdateProfile(auth);
+  // variable
+  let errorElement;
 
-      // firebase hooks
-      const [createUserWithEmailAndPassword, user, loading, error] =
-        useCreateUserWithEmailAndPassword(auth);
-      const [updateProfile, updating, uError] = useUpdateProfile(auth);
-      const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+  if (loading || updating) {
+    return <Loading />;
+  }
+
+  if (error) {
+    errorElement = (
+      <p className=" px-1 pb-2">
+        <small className="text-red-500">{error.message}</small>
+      </p>
+    );
+  }
 
   const onSubmit = async (data) => {
-    await createUserWithEmailAndPassword(data.email, data.password);
-    // await updateProfile({ displayName: data.name });
+    createUserWithEmailAndPassword(data.email, data.password);
+    await updateProfile({ displayName: data.name });
+    if (user) {
+      toast.success("Registration successful");
+    }
   };
 
   return (
@@ -124,11 +140,11 @@ const Register = () => {
                 )}
               </label>
             </div>
-            {/* {errorElement} */}
+            {errorElement}
             <input
               className="btn btn-primary w-full max-w-xs"
               type="submit"
-              value="Sign Up"
+              value="Register"
             />
           </form>
           <p className="p-1">
