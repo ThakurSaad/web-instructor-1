@@ -13,7 +13,11 @@ const Layout = () => {
   const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
-    fetch("http://localhost:5000/billing-count")
+    fetch("http://localhost:5000/billing-count", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -100,7 +104,7 @@ const Layout = () => {
             </tbody>
           </table>
           <div className="pagination-buttons flex justify-center mb-20">
-            {[...Array(pageCount).keys()].map((number, index) => (
+            {[...Array(pageCount).keys()]?.map((number, index) => (
               <button
                 key={index}
                 className={
