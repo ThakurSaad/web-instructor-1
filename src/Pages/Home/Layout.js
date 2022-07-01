@@ -5,12 +5,13 @@ import AddBillModal from "./AddBillModal";
 import BillingRow from "./BillingRow";
 
 const Layout = () => {
+  // const [billingList, setBillingList] = useState([]);
   const [addBillModal, setAddBillModal] = useState(null);
   const [submitMethod, setSubmitMethod] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-  
+
   useEffect(() => {
     fetch("http://localhost:5000/billing-count")
       .then((res) => res.json())
@@ -18,18 +19,21 @@ const Layout = () => {
         console.log(data);
         setPageCount(Math.ceil(data.billingCount / 10));
       });
-  }, []);
+  }, [page, pageSize]);
 
   const {
     data: billingList,
     isLoading,
     refetch,
-  } = useQuery("billing-list", () =>
-    fetch("http://localhost:5000/billing-list", {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => res.json())
+  } = useQuery(["billing-list", page, pageSize], () =>
+    fetch(
+      `http://localhost:5000/billing-list?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => res.json())
   );
 
   if (isLoading) {
@@ -95,7 +99,7 @@ const Layout = () => {
               ))}
             </tbody>
           </table>
-          <div className="pagination-buttons flex justify-center">
+          <div className="pagination-buttons flex justify-center mb-20">
             {[...Array(pageCount).keys()].map((number, index) => (
               <button
                 key={index}
@@ -113,10 +117,10 @@ const Layout = () => {
               className="select bg-primary"
               onChange={(e) => setPageSize(e.target.value)}
             >
-              <option>5</option>
-              <option selected>10</option>
-              <option>11</option>
-              <option>20</option>
+              <option defaultValue="10">10</option>
+              <option value="5">5</option>
+              <option value="11">11</option>
+              <option value="15">15</option>
             </select>
           </div>
         </div>
