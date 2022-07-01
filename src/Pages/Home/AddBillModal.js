@@ -89,7 +89,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
             ✕
           </label>
           <h3 className="font-bold text-lg">
-            Please provide the below information to add a new bill
+            Please provide the below information
           </h3>
 
           <form onSubmit={handleSubmit} className="grid justify-center">
