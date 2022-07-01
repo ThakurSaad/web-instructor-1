@@ -30,7 +30,6 @@ const Layout = () => {
     }).then((res) => res.json())
   );
 
-  // console.log(billingList);
   if (isLoading) {
     return <Loading />;
   }
@@ -94,6 +93,13 @@ const Layout = () => {
               ))}
             </tbody>
           </table>
+          <div className="pagination-buttons flex justify-center">
+            {[...Array(pageCount).keys()].map((number, index) => (
+              <div key={index} className="btn-group">
+                <button className="btn rounded-sm mr-1">{number + 1}</button>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>
