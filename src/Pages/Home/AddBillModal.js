@@ -51,14 +51,17 @@ const AddBillModal = ({ submitMethod, _id }) => {
       }
 
       if (submitMethod === "PUT") {
-        fetch(`https://limitless-shore-40439.herokuapp.com/update-billing/${_id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-          body: JSON.stringify(bill),
-        })
+        fetch(
+          `https://limitless-shore-40439.herokuapp.com/update-billing/${_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(bill),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.acknowledged) {
@@ -78,7 +81,13 @@ const AddBillModal = ({ submitMethod, _id }) => {
     <div>
       <input type="checkbox" id="add-bill-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+        <div className="modal-box relative">
+          <label
+            htmlFor="add-bill-modal"
+            class="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
           <h3 className="font-bold text-lg">
             Please provide the below information to add a new bill
           </h3>
