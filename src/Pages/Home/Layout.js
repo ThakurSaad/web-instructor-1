@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import Loading from "../Shared/Loading";
 import AddBillModal from "./AddBillModal";
 import BillingRow from "./BillingRow";
+import logo from "../../assets/bill-manager.png";
 
 const Layout = () => {
   // const [billingList, setBillingList] = useState([]);
@@ -47,7 +48,7 @@ const Layout = () => {
   return (
     <main>
       <section className="header flex justify-between bg-base-200 p-4">
-        <div className="header-start">Logo</div>
+        <div className="header-start"><img className="w-36 h-16" src={logo} alt="logo" /></div>
         <div className="header-end">Paid Total : </div>
       </section>
       <section className="body bg-base-200 lg:mx-8 my-4">
