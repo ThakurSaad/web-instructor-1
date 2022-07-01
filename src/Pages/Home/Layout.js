@@ -9,7 +9,8 @@ const Layout = () => {
   const [submitMethod, setSubmitMethod] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
-
+  const [pageSize, setPageSize] = useState(10);
+  
   useEffect(() => {
     fetch("http://localhost:5000/billing-count")
       .then((res) => res.json())
@@ -108,6 +109,15 @@ const Layout = () => {
                 {number + 1}
               </button>
             ))}
+            <select
+              className="select bg-primary"
+              onChange={(e) => setPageSize(e.target.value)}
+            >
+              <option>5</option>
+              <option selected>10</option>
+              <option>11</option>
+              <option>20</option>
+            </select>
           </div>
         </div>
       </section>
