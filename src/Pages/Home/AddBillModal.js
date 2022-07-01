@@ -34,7 +34,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
           .then((data) => {
             if (data.acknowledged) {
               toast.success("Submitted Successfully");
-              // window.location.reload();
+              window.location.reload();
             } else {
               toast.error(
                 "An error occurred. Please reload the page and try again"

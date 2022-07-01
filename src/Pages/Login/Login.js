@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
   // react router hook
@@ -17,14 +18,16 @@ const Login = () => {
   // firebase hooks
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  // custom hook
+  const [token] = useToken(user);
   // variable
   let errorElement;
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       navigate("/");
     }
-  }, [navigate, user]);
+  }, [navigate, token]);
 
   if (loading) {
     return <Loading />;
