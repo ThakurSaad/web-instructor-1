@@ -27,6 +27,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify(bill),
         })
@@ -48,6 +49,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
           method: "PUT",
           headers: {
             "content-type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify(bill),
         })

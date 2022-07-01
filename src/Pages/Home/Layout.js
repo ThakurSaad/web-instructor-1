@@ -13,7 +13,11 @@ const Layout = () => {
     isLoading,
     refetch,
   } = useQuery("billing-list", () =>
-    fetch("http://localhost:5000/billing-list").then((res) => res.json())
+    fetch("http://localhost:5000/billing-list", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => res.json())
   );
 
   // console.log(billingList);

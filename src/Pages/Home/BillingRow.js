@@ -11,6 +11,9 @@ const BillingRow = ({ billingSingle, refetch }) => {
   const handleDelete = () => {
     fetch(`http://localhost:5000/delete-billing?id=${_id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -48,7 +51,9 @@ const BillingRow = ({ billingSingle, refetch }) => {
           >
             Edit
           </label>
-          {addBillModal && <AddBillModal _id={_id} submitMethod={submitMethod} />}
+          {addBillModal && (
+            <AddBillModal _id={_id} submitMethod={submitMethod} />
+          )}
         </div>
       </td>
     </tr>
