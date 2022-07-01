@@ -13,7 +13,7 @@ const Layout = () => {
   const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
-    fetch("http://localhost:5000/billing-count", {
+    fetch("https://limitless-shore-40439.herokuapp.com/billing-count", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -31,7 +31,7 @@ const Layout = () => {
     refetch,
   } = useQuery(["billing-list", page, pageSize], () =>
     fetch(
-      `http://localhost:5000/billing-list?page=${page}&pageSize=${pageSize}`,
+      `https://limitless-shore-40439.herokuapp.com/billing-list?page=${page}&pageSize=${pageSize}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,

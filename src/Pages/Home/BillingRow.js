@@ -9,7 +9,7 @@ const BillingRow = ({ billingSingle, refetch }) => {
   const { _id, fullName, email, phone, paidAmount } = billingSingle || "";
 
   const handleDelete = () => {
-    fetch(`http://localhost:5000/delete-billing/${_id}`, {
+    fetch(`https://limitless-shore-40439.herokuapp.com/delete-billing/${_id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -29,7 +29,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
       toast.error("Please provide a valid email");
     } else {
       if (submitMethod === "POST") {
-        fetch("http://localhost:5000/add-billing", {
+        fetch("https://limitless-shore-40439.herokuapp.com/add-billing", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -51,7 +51,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
       }
 
       if (submitMethod === "PUT") {
-        fetch(`http://localhost:5000/update-billing/${_id}`, {
+        fetch(`https://limitless-shore-40439.herokuapp.com/update-billing/${_id}`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",

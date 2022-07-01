@@ -8,7 +8,7 @@ const useToken = (user) => {
     const currentUser = { email: email };
 
     if (email) {
-      fetch(`http://localhost:5000/registration?email=${email}`, {
+      fetch(`https://limitless-shore-40439.herokuapp.com/registration?email=${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
