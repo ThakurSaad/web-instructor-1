@@ -8,6 +8,7 @@ const Layout = () => {
   const [addBillModal, setAddBillModal] = useState(null);
   const [submitMethod, setSubmitMethod] = useState(null);
   const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:5000/billing-count")
@@ -95,9 +96,17 @@ const Layout = () => {
           </table>
           <div className="pagination-buttons flex justify-center">
             {[...Array(pageCount).keys()].map((number, index) => (
-              <div key={index} className="btn-group">
-                <button className="btn rounded-sm mr-1">{number + 1}</button>
-              </div>
+              <button
+                key={index}
+                className={
+                  page === number
+                    ? "selected btn btn-primary rounded-sm mr-1"
+                    : "btn btn-primary rounded-sm mr-1"
+                }
+                onClick={() => setPage(number)}
+              >
+                {number + 1}
+              </button>
             ))}
           </div>
         </div>
