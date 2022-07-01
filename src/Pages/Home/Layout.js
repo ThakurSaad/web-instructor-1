@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Loading from "../Shared/Loading";
 import AddBillModal from "./AddBillModal";
@@ -7,6 +7,16 @@ import BillingRow from "./BillingRow";
 const Layout = () => {
   const [addBillModal, setAddBillModal] = useState(null);
   const [submitMethod, setSubmitMethod] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/billing-count")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setPageCount(Math.ceil(data.billingCount / 10));
+      });
+  }, []);
 
   const {
     data: billingList,

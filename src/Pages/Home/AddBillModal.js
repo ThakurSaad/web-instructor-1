@@ -1,7 +1,12 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import auth from "../../firebase.init";
 
 const AddBillModal = ({ submitMethod, _id }) => {
+  // firebase hooks
+  const [user] = useAuthState(auth);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // variables
@@ -10,6 +15,7 @@ const AddBillModal = ({ submitMethod, _id }) => {
     const phone = event.target.phone.value;
     const paidAmount = event.target.paidAmount.value;
     const bill = {
+      user: user?.email,
       fullName: fullName,
       email: email,
       phone: phone,
